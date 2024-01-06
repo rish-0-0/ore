@@ -1,0 +1,26 @@
+{
+  "name": "ore",
+  "version": "0.0.0",
+  "description": "Object Relational Encoding, a cool wrapper over pg",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rish-0-0/ore.git"
+  },
+  "keywords": [
+    "node",
+    "pg",
+    "node-postgres",
+    "orm",
+    "javascript"
+  ],
+  "author": "Rishabh Anand",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rish-0-0/ore/issues"
+  },
+  "homepage": "https://github.com/rish-0-0/ore#readme"
+}
