@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
 // singleton
 globalThis.pgConnectionMgr = null;
@@ -6,7 +6,7 @@ globalThis.pgConnectionMgr = null;
 // abstract class
 class ConnectionManager {
   // Classes which extend this one will be singletons
-  constructor(configuration) {
+  constructor (configuration) {
     if (!configuration) {
       throw new TypeError(`Invalid configuration of type ${typeof configuration} provided`);
     }
@@ -34,9 +34,8 @@ class ConnectionManager {
   }
 }
 
-
 class PostgresConnectionManager extends ConnectionManager {
-  constructor(configuration) {
+  constructor (configuration) {
     super(configuration);
     if (globalThis.pgConnectionMgr) {
       throw new ReferenceError(`Only one instance of ${this.constructor.name} is allowed`);
@@ -45,18 +44,18 @@ class PostgresConnectionManager extends ConnectionManager {
     Object.entries(configuration)
       .forEach(([key, config]) => {
         this.connections.set(key, new Pool(config));
-      })
+      });
   }
 
   // abstract method
   async query (identifier, queryObj, additionalOptions, transaction) {
     if (transaction != null) {
-      await client.query(queryObj, additionalOptions);
+      await transaction.query(queryObj, additionalOptions);
       return;
     }
     // find the associated pool
     const connection = this.connections.get(identifier);
-    
+
     // await pool.query()
     return await connection.query(queryObj, additionalOptions);
   }
@@ -64,21 +63,21 @@ class PostgresConnectionManager extends ConnectionManager {
   // abstract method
   async transactionBegin (identifier) {
     const client = await this.connections.get(identifier).connect();
-    await client.query("BEGIN");
+    await client.query('BEGIN');
     return client;
   }
 
   // abstract method
   async transactionCommit (client) {
-    await client.query("COMMIT");
+    await client.query('COMMIT');
     await client.release();
   }
 
   // abstract method
   async transactionRollback (client) {
-    await client.query("ROLLBACK");
+    await client.query('ROLLBACK');
     await client.release();
   }
 }
 
-module.exports = {PostgresConnectionManager}
+module.exports = { PostgresConnectionManager };

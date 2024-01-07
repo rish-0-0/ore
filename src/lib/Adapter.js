@@ -1,8 +1,8 @@
-const { PostgresConnectionManager } = require("./ConnectionManager");
+const { PostgresConnectionManager } = require('./ConnectionManager');
 
 // abstract class
 class Adapter {
-  constructor(adapter, config) {
+  constructor (adapter, config) {
     this.adapter = adapter;
     this.config = config;
   }
@@ -14,10 +14,6 @@ class Adapter {
 }
 
 class NodePostgresAdapter extends Adapter {
-  constructor(adapter, config) {
-    super(adapter, config);
-  }
-
   get instance () {
     if (globalThis.pgConnectionMgr) {
       return globalThis.pgConnectionMgr;
