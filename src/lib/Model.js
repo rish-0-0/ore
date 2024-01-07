@@ -1,30 +1,29 @@
 class Model {
-  constructor(adapter) {
+  constructor (adapter) {
     this.adapter = adapter;
   }
-  
 
-  async findAll() {
-
-  }
-
-  async findOne() {
-    
-  }
-
-  async insert() {
+  async findAll () {
 
   }
 
-  async bulkInsert() {
+  async findOne () {
 
   }
 
-  async deleteOne() {
+  async insert () {
 
   }
 
-  async bulkDelete() {
+  async bulkInsert () {
+
+  }
+
+  async deleteOne () {
+
+  }
+
+  async bulkDelete () {
 
   }
 }
