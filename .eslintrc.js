@@ -1,8 +1,9 @@
 module.exports = {
   extends: [
-    'standard'
+    "standard"
   ],
   rules: {
-    semi: [2, 'always']
+    semi: [2, "always"],
+    quotes: ["error", "double"]
   }
 };

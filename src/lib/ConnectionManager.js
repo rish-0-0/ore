@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 // singleton
 globalThis.pgConnectionMgr = null;
@@ -10,28 +10,23 @@ class ConnectionManager {
     if (!configuration) {
       throw new TypeError(`Invalid configuration of type ${typeof configuration} provided`);
     }
+    if (!(configuration instanceof Array)) {
+      throw new TypeError("Configuration should be an array");
+    }
     this.connections = new Map();
   }
 
   // abstract method
-  async query (identifier, queryObj, additionalOptions, transaction) {
-
-  }
+  async query (identifier, queryObj, additionalOptions, transaction) {}
 
   // abstract method
-  async transactionBegin () {
-
-  }
+  async beginTransaction (identifier) {}
 
   // abstract method
-  async transactionCommit () {
-
-  }
+  async commitTransaction (client) {}
 
   // abstract method
-  async transactionRollback () {
-
-  }
+  async rollbackTransaction (client) {}
 }
 
 class PostgresConnectionManager extends ConnectionManager {
@@ -61,21 +56,21 @@ class PostgresConnectionManager extends ConnectionManager {
   }
 
   // abstract method
-  async transactionBegin (identifier) {
+  async beginTransaction (identifier) {
     const client = await this.connections.get(identifier).connect();
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     return client;
   }
 
   // abstract method
-  async transactionCommit (client) {
-    await client.query('COMMIT');
+  async commitTransaction (client) {
+    await client.query("COMMIT");
     await client.release();
   }
 
   // abstract method
-  async transactionRollback (client) {
-    await client.query('ROLLBACK');
+  async rollbackTransaction (client) {
+    await client.query("ROLLBACK");
     await client.release();
   }
 }

@@ -1,4 +1,4 @@
-const { PostgresConnectionManager } = require('./ConnectionManager');
+const { PostgresConnectionManager } = require("./ConnectionManager");
 
 // abstract class
 class Adapter {
@@ -8,9 +8,7 @@ class Adapter {
   }
 
   // abstract method
-  get instance () {
-    return null;
-  }
+  get instance () { return null; }
 }
 
 class NodePostgresAdapter extends Adapter {
@@ -25,11 +23,11 @@ class NodePostgresAdapter extends Adapter {
   }
 }
 
-function getAdapter (adapter, config) {
-  if (adapter === 'postgres') {
-    return new NodePostgresAdapter(adapter, config);
+function getConnectionManager (adapter, config) {
+  if (adapter === "postgres") {
+    return new NodePostgresAdapter(adapter, config).instance;
   }
   throw new ReferenceError(`No adapter config available for ${adapter}`);
 }
 
-module.exports = getAdapter;
+module.exports = getConnectionManager;

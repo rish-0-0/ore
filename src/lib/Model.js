@@ -28,4 +28,4 @@ class Model {
   }
 }
 
-module.exports = Model;
+module.exports = { Model };
