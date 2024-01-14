@@ -1,7 +1,7 @@
 {
   "name": "ore",
   "version": "0.0.0",
-  "description": "Object Relational Encoding, a cool wrapper over pg",
+  "description": "Kind of an ORM, a cool wrapper over various db connectors",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
