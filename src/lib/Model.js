@@ -1,18 +1,29 @@
+const { QueryExecutor } = require("./QueryExecutor");
+
 class Model {
-  constructor (adapter) {
-    this.adapter = adapter;
+  constructor (connectionMgr, {
+    tableName = this.constructor.name
+  } = {}) {
+    this.connectionMgr = connectionMgr;
+    this.tableName = tableName;
   }
 
   async findAll () {
-
+    return new QueryExecutor(this.connectionMgr, "findAll", `SELECT * FROM ${this.tableName};`);
   }
 
   async findOne () {
-
+    return new QueryExecutor(this.connectionMgr, "findOne", `SELECT * FROM ${this.tableName} LIMIT 1;`);
   }
 
-  async insert () {
-
+  async insertOne (object) {
+    const cols = Object.keys(object).sort();
+    const row = cols.reduce((acc, curr) => acc.push(object[curr]), []);
+    return new QueryExecutor(
+      this.connectionMgr,
+      "insertOne",
+      `INSERT INTO ${this.tableName} (${cols.map(col => `"${col}"`).join()}) VALUES (${row.map(cell => `'${cell}'`).join()});`
+    );
   }
 
   async bulkInsert () {
@@ -26,6 +37,10 @@ class Model {
   async bulkDelete () {
 
   }
+
+  async update () {
+
+  }
 }
 
-module.exports = Model;
+module.exports = { Model };

@@ -1,10 +1,12 @@
 {
   "name": "ore",
   "version": "0.0.0",
-  "description": "Object Relational Encoding, a cool wrapper over pg",
+  "description": "Kind of an ORM, a cool wrapper over various db connectors",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint .",
+    "test": "mocha",
+    "coverage": "nyc npm test"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.1",
     "eslint-plugin-promise": "^6.1.1",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
   }
 }
