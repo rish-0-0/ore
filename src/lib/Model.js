@@ -13,7 +13,7 @@ class Model {
   }
 
   async findOne () {
-    return new QueryExecutor(this.connectionMgr, "findOne", `SELECT * FROM ${this.tableName} LIMIT 1 ORDER BY ID;`);
+    return new QueryExecutor(this.connectionMgr, "findOne", `SELECT * FROM ${this.tableName} LIMIT 1;`);
   }
 
   async insertOne (object) {
@@ -22,7 +22,7 @@ class Model {
     return new QueryExecutor(
       this.connectionMgr,
       "insertOne",
-      `INSERT INTO ${this.tableName} (${cols.map(col => `"${col}"`).join()}) VALUES (${row.map(cell => `'${cell}'`).join()})`
+      `INSERT INTO ${this.tableName} (${cols.map(col => `"${col}"`).join()}) VALUES (${row.map(cell => `'${cell}'`).join()});`
     );
   }
 
